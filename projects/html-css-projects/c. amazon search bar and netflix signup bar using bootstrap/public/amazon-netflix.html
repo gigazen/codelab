@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Amazon Search Bar and Netflix SignUp Bar using Bootstrap</title>
+    <!-- for online bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <!-- for online bootstrap-icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+    <!-- for locally installed bootstrap -->
+    <link
+      rel="stylesheet"
+      href="../node_modules/bootstrap/dist/css/bootstrap.css"
+    />
+    <!-- for locally installed bootstrap-icons -->
+    <link
+      rel="stylesheet"
+      href="../node_modules/bootstrap-icons/font/bootstrap-icons.css"
+    />
+    <style>
+      #box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      body {
+        background-color: black;
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body class="container-fluid">
+    <div id="box">
+      <div>
+        <!-- Amazon Search Bar -->
+        <div class="input-group input-group-lg">
+          <select name="dd" class="input-group-text">
+            <option value="">All</option>
+            <option value="">Alexa Skills</option>
+            <option value="">Amazon Fresh</option>
+            <option value="">Books</option>
+            <option value="">Computers</option>
+          </select>
+          <input
+            type="text"
+            name="searchbox"
+            placeholder="Search here..."
+            class="form-control"
+          />
+          <button class="btn btn-warning">
+            <span class="bi bi-search"></span>
+          </button>
+        </div>
+
+        <br /><br />
+
+        <!-- Netflix Sign-Up Bar -->
+        <p>
+          Ready to watch? Enter your email to create or restart your membership.
+        </p>
+        <div class="input-group input-group-lg">
+          <input
+            type="email"
+            name="yourEmail"
+            placeholder="Email address"
+            class="form-control"
+          />
+          <button class="btn btn-danger">
+            Get Started
+            <span class="bi bi-chevron-right"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,534 @@
+/* Mobile-first design */
+/************************
+      General style
+************************/
+
+/* css reset */
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  /* set color for paragraph as color for body */
+  color: #404040;
+  line-height: 1.6;
+}
+
+/************************
+      Typography
+************************/
+
+h1,
+h2,
+strong {
+  font-weight: 700;
+}
+
+.accent-color {
+  color: #ffe600;
+}
+
+.hero-title {
+  font-size: 1.5rem;
+  /* for larger font size, decrease line-height */
+  line-height: 1.4;
+  margin: 0.8em 0;
+}
+
+.hero-subtitle {
+  font-size: 1.125rem;
+}
+
+/* title in info section */
+.section-title {
+  font-size: 1.125rem;
+  color: #000;
+  margin: 1.25em 0;
+}
+
+/* after section title create an underline pseudo element in home and about us page */
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  margin-top: 10px;
+  background: #ffe600;
+}
+
+/* center the underline pseudo element in home page */
+.section-title-center::after {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* give top margin 0 to section title of about us page only, to align it's top with the image on side for large screen */
+.main-text .section-title:first-child {
+  margin-top: 0;
+}
+
+/* title and subtitle of about us page, they will always take middle columns, 1 column for small screen, 3 columns for large screen, it is okay to write some associated layouts in typography area, to maintain dry principle */
+.page-title,
+.subtitle {
+  grid-column: 2 / -2;
+  color: #000;
+  /* center just the page title and subtitle */
+  text-align: center;
+}
+
+.page-title {
+  font-size: 3rem;
+  margin-bottom: 0.5em;
+  /* center the pseudo element associated with page title */
+  justify-self: center;
+}
+
+/* create an underline below about us page title */
+.page-title::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 30px;
+  background: #ffe600;
+  margin-top: -40px;
+  margin-left: 15px;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  margin: 0.5em 0 3em;
+}
+
+/************************
+      general layout
+************************/
+
+/* sections with main-grid class will have 3 columns for smaller screen and 5 columns for larger screen */
+/* for smaller screen, using minmax(1em, 1fr) set first and last columns of min 1em width which will act as min padding beside content but max padding can be acc to screen width. Then using minmax(0px, 500px) set maximum width for middle column */
+.main-grid {
+  display: grid;
+  grid-template-columns: minmax(1em, 1fr) minmax(0px, 500px) minmax(1em, 1fr);
+  gap: 0 2em;
+}
+
+/* for larger screen, width of content inside middle column should increase, so replace the single middle column with 3 columns of fixed minimum and maximum acc. to screen width, now content can take 2 or 3 of these new middle columns */
+@media screen and (min-width: 600px) {
+  .main-grid {
+    grid-template-columns: minmax(1em, 1fr) repeat(3, minmax(150px, 320px)) minmax(
+        1em,
+        1fr
+      );
+  }
+}
+
+/************************
+        hero section
+************************/
+
+.hero {
+  color: #fff;
+  /* as there will be text and other things over image, so we must take background image via css, instead of image via html img element, cannot put things over html images */
+  background-image: url(../img/hero-bg.jpg);
+  /* backup color if background image cannot load */
+  background-color: #404040;
+  /* background image will cover whole area but will remove extra parts of image */
+  background-size: cover;
+  /* image goes to bottom with screen change, prevent it by fixing the image position at bottom */
+  background-position: bottom;
+  /* give height using padding, to keep containers responsive, never use height property for containers otherwise for small screen widths, content will come out of it */
+  padding: 8em 0 4em;
+}
+
+/* hero section has main-grid class, so hero is a grid container. For smaller screen, every direct child element of hero section should take middle column, * selects just html elements so this excludes background image of hero section, as it is not coming from html */
+.hero > * {
+  grid-column: 2 / -2;
+}
+
+/* create breakpoint where the site is breaking or causing problem, not at specific device width */
+@media (min-width: 400px) {
+  /* prevent the hero section text to be on top of the guy's face for screen width just less than 600px */
+  .hero > * {
+    margin-right: 20%;
+  }
+}
+
+/* for larger screen, everything inside hero section should take 2 columns from middle, starting from grid line number 2, among available 5 columns */
+@media (min-width: 600px) {
+  .hero > * {
+    grid-column: 2 / span 2;
+  }
+
+  .hero {
+    /* increase hero section height by using padding */
+    padding: 10em 0 6em;
+  }
+}
+
+/************************
+        buttons
+************************/
+
+.btn {
+  /* to make the anchor element a responsive button, give padding to it instead of width, height, then it's content won't come out, x should be at least double of y */
+  padding: 0.5em 1.75em;
+  font-weight: 700;
+  text-decoration: none;
+  margin-top: 1.5em;
+  cursor: pointer;
+  border: 0;
+}
+
+/* button at hero is inside hero grid container which takes middle grid column, means this button is a grid item and as no width, height is set for it so by default it will stretch */
+.btn-primary {
+  background-color: #ffe600;
+  color: #000;
+  justify-self: start;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: #ffc400;
+}
+
+/* push the button inside form to the end horizontally, as we make form container a grid container so button inside it is a grid item */
+.btn-form {
+  justify-self: end;
+  /* margin-left: auto; */
+}
+
+/************************
+        info section
+************************/
+/* info section has main-grid class, so info is a grid container. For mobile view, inside info section each grid item named col should take the middle column among the 3 columns, and should come one below another within that column, as no width, height is set for it so by default it will stretch across the column */
+.col {
+  grid-column: 2 / -2;
+}
+
+.info {
+  padding: 3em 0;
+  text-align: center;
+}
+
+/* trick : for larger screen, there are 5 columns, we want each col to take 1 column from middle 3 columns, so set each col to take 1 column and tell first col to start from 2nd column and span upto 1 column, then rest of the cols will automatically take next columns */
+@media (min-width: 600px) {
+  .col {
+    grid-column: span 1;
+  }
+
+  .col:first-child {
+    grid-column: 2 / span 1;
+  }
+}
+
+/************************
+        footer
+************************/
+
+.footer {
+  background: #ebebeb;
+  padding: 3em 0;
+  text-align: center;
+
+  grid-template-areas: ". social ." ". main .";
+}
+
+/* footer also has main-grid, so footer is a grid container and its available grid columns are set from main-grid. For smaller screen, social icon and logo-text grid item sections should come one below another inside middle column. These grid item sections also get stretched by default */
+/* this is repetition as using grid areas we already defined positions */
+.footer-main,
+.social-list {
+  grid-column: 2 / -2;
+}
+
+.social-list {
+  grid-area: social;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2em;
+}
+
+.social-link {
+  font-size: 1.5rem;
+  color: #000;
+  margin-right: 1em;
+}
+
+.social-link:hover {
+  color: #777;
+}
+
+.footer-main {
+  grid-area: main;
+}
+
+.footer-logo,
+.footer-text,
+.footer-fineprint {
+  opacity: 0.5;
+}
+
+.footer-text {
+  margin: 1em 0 2em;
+}
+
+.footer-fineprint {
+  font-size: 0.75rem;
+}
+
+@media (min-width: 600px) {
+  .footer {
+    grid-template-areas: ". main main social .";
+  }
+
+  .footer-main {
+    text-align: left;
+  }
+
+  .social-list {
+    /* social-list is a flex container plus a grid item, so to align its content horizontally, we can either use justify-content (for flex container) or justify-self (for grid item), on another note, remember justify-self is not valid for flex items */
+    justify-content: flex-end;
+    /* justify-self: end; */
+  }
+}
+
+/************************
+        navigation
+************************/
+
+/* give generic header a black background so that it can be used in other pages */
+.header {
+  background: #000;
+}
+
+/* make the home page specific header containing logo and navigation, to have transparent background but it will look white then. Pull it out of document flow by giving absolute position then it will be over background image with transparent background */
+.header-home {
+  background: transparent;
+  position: absolute;
+  /* prevent shrinking behavior of absolute positioned element for very large screen by making the element to take 100% of parent body element, this will prevent misalignment of header in home page for large screen */
+  width: 100%;
+}
+
+/* as header has main-grid class, so header is a grid container and header-content is a grid item. Set header-content to take the 2nd column in small screen. Also make the header-content a flex container to keep its content side by side */
+.header-content {
+  grid-column: 2 / -2;
+  display: flex;
+}
+
+/* here logo image has transparent background, so any color we set as background will be applied */
+.logo-link {
+  background: #ffe600;
+  padding-top: 2em;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: #e7d002;
+}
+
+.nav-list {
+  list-style: none;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* if there is no positioned ancestor for an absolute positioned element then it will be positioned relative to body */
+.nav {
+  background: #000;
+  width: 100%;
+  /* for mobile view, normally when hamburger is not clicked, keep the nav items to 100% left of the screen i.e. out of sight */
+  position: fixed;
+  top: 0;
+  left: 100%;
+  /* normally no translate along X axis, but upon clicking hamburger menu, this transform property will get replaced by another transform with -100% translate i.e. nav will appear from right */
+  transform: translateX(0);
+  transition: transform 0.25s;
+}
+
+/* using javascript, if we add .navigation-open class to nav element then for smaller screen, it will bring the normally hidden nav menus from right to left side along X axis by 100%. And if we remove this class then nav menus will slide out */
+.navigation-open {
+  transform: translateX(-100%);
+}
+
+/* style for the hamburger html entity  */
+.open-nav {
+  border: 0;
+  background: 0;
+  color: #fff;
+  font-size: 1.5rem;
+  /* push all the space to the left of hamburger menu means move it to the right */
+  margin-left: auto;
+  cursor: pointer;
+  padding: 0.5em;
+}
+
+/* style for the cross html entity, style it by commenting out left: 100% in nav style */
+.close-nav {
+  border: 0;
+  background: 0;
+  color: #ffe600;
+  font-size: 3rem;
+  font-weight: 700;
+  /* pull the cross out of the flow so that it cannot affect position of the nav links */
+  position: absolute;
+  top: 0;
+  left: 85%;
+  cursor: pointer;
+  /* give padding so that area surrounding cross entity can increase, then its click area will also increase, pointer cursor will be shown long before user reaches the cross */
+  padding: 0.5em;
+}
+
+@media (min-width: 600px) {
+  /* no hamburger and cross buttons in larger screen */
+  .open-nav,
+  .close-nav {
+    display: none;
+  }
+
+  /* for larger screen, nav will get it's original static position from fixed position in case of smaller screen i.e. will return into document flow */
+  .nav {
+    position: initial;
+  }
+
+  .nav-list {
+    height: 10%;
+    margin-top: 1em;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+  }
+
+  .nav-item {
+    margin-left: 2em;
+  }
+
+  /* make the home page navigation menu for large screen, to have transparent background */
+  .header-home .nav {
+    background: transparent;
+  }
+}
+
+/* for larger screen, underline the current page in navigation, html document of current page has `current` class in its navigaiton link, so when that page opens only its navigation link will have border */
+.current {
+  border-bottom: 1px solid #ffe600;
+}
+
+/************************
+      template page
+
+      common style 
+      for about us 
+      and contact 
+      page
+************************/
+
+.main-template {
+  padding: 4em 0;
+}
+
+.main-template > * {
+  grid-column: 2 / -2;
+}
+
+/* to fit the image within its container, always use width: 100%, max-width won't work to fit it */
+.main-image {
+  width: 100%;
+  margin-bottom: 1.5em;
+  box-shadow: 5px 5px 0px black, 10px 10px 0px #ffe600;
+}
+
+@media (min-width: 600px) {
+  .main-image {
+    grid-column: 2;
+  }
+
+  .main-text {
+    grid-column: 3 / span 2;
+    grid-row: span 2;
+  }
+
+  /* in markup of contact page, image > sec-text > main-text form, by giving order to sec-text push it to the end */
+  .secondary-text {
+    order: 20;
+    grid-column: 2 / span 1;
+    grid-row: 4 / span 1;
+  }
+}
+
+/************************
+        form
+************************/
+
+/* make the form a grid container so that form field grid items, labels and button inside it can stretch along their width */
+.contact-form {
+  display: grid;
+}
+
+label {
+  font-weight: 700;
+}
+
+input,
+textarea {
+  margin-bottom: 0.75em;
+  padding: 0.4em;
+  font-family: inherit;
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+}
+
+/* for larger screen first name and last name boxes come side by side */
+@media (min-width: 600px) {
+  .contact-form {
+    grid-template-columns: repeat(2, 1fr);
+    /* densely pack the grid items by closing all the empty grid cells in grid */
+    grid-auto-flow: dense;
+    gap: 0 1em;
+  }
+
+  .fname-label,
+  .fname-input {
+    grid-column: 1;
+  }
+
+  .lname-label,
+  .lname-input {
+    grid-column: 2;
+  }
+
+  .message-label,
+  .message-textarea {
+    grid-column: span 2;
+  }
+
+  .btn-form {
+    grid-column: 2;
+  }
+}

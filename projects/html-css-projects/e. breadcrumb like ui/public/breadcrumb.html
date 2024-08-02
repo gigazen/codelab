@@ -1,0 +1,34 @@
+<!-- designing a Breadcrumb like UI using pseudo classes and pseudo elements -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      ul {
+        display: flex;
+        list-style: none;
+        font-weight: 600;
+      }
+      /* inserting arrow after every list item */
+      li::after {
+        content: ">>";
+        margin: 10px;
+      }
+      /* vanishing the arrow only after last list item */
+      li:last-child::after {
+        content: "";
+      }
+      li:last-child {
+        color: dodgerblue;
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li>Home</li>
+      <li>Categories</li>
+      <li>Electronics</li>
+      <li>Mobiles</li>
+      <li>Samsung</li>
+    </ul>
+  </body>
+</html>

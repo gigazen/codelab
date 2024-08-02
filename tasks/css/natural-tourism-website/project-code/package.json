@@ -1,0 +1,14 @@
+{
+  "name": "natural-tourism",
+  "version": "1.0.0",
+  "description": "Landing page for natural tourism",
+  "main": "index.js",
+  "scripts": {
+    "compile:sass": "node-sass sass/main.scss css/style.css"
+  },
+  "author": "gigazen",
+  "license": "ISC",
+  "devDependencies": {
+    "node-sass": "^7.0.1"
+  }
+}

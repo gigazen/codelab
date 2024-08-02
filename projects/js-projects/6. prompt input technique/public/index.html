@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Input</title>
+    <link
+      rel="stylesheet"
+      href="../node_modules/bootstrap/dist/css/bootstrap.css"
+    />
+    <script>
+      function CreateFolder() {
+        var folderName = prompt("Enter Folder Name", "New Folder");
+        document.write("Folder Created : " + folderName);
+      }
+    </script>
+  </head>
+  <body class="container-fluid">
+    <div class="text-center mt-5">
+      <button onclick="CreateFolder()" class="btn btn-link">
+        Create New Folder
+      </button>
+    </div>
+  </body>
+</html>

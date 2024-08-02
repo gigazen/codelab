@@ -1,0 +1,53 @@
+@import "variables";
+@import "mixins";
+
+.row {
+  max-width: $grid-width;
+  background-color: #eee;
+  margin: 0 auto;
+
+  // .row:not(:last-child){} means all except .row:last-child {}
+  &:not(:last-child) {
+    margin-bottom: $gutter-vertical;
+  }
+
+  @include clearfix; // .row::after {}
+
+  [class^="col"] {
+    background-color: orangered;
+    float: left;
+    height: 3rem;
+
+    // center the text vertically and horizontally
+    line-height: 3rem; // make line-height same as height
+    text-align: center;
+
+    &:not(:last-child) {
+      margin-right: $gutter-horizontal;
+    }
+  }
+
+  .col-1-of-2 {
+    width: calc((100% - #{$gutter-horizontal}) / 2);
+  }
+
+  .col-1-of-3 {
+    width: calc((100% - #{$gutter-horizontal} * 2) / 3);
+  }
+
+  .col-1-of-4 {
+    width: calc((100% - #{$gutter-horizontal} * 3) / 4);
+  }
+  
+  .col-2-of-3 {
+    width: calc(2 * (100% - #{$gutter-horizontal} * 2) / 3 + #{$gutter-horizontal});
+  }
+
+  .col-2-of-4 {
+    width: calc(2 * (100% - #{$gutter-horizontal} * 3) / 4 + #{$gutter-horizontal});
+  }
+
+  .col-3-of-4 {
+    width: calc(3 * (100% - #{$gutter-horizontal} * 3) / 4 + 2 * #{$gutter-horizontal});
+  }
+}

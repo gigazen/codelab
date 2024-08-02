@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sliding Text</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: firebrick;
+        overflow: hidden;
+      }
+      .sliding-text {
+        color: white;
+        font-family: Arial;
+        font-size: 58px;
+        font-weight: 900;
+        letter-spacing: -2px;
+        text-transform: uppercase;
+        margin: 150px;
+      }
+      .sliding-line {
+        height: 50px;
+        overflow: hidden;
+        position: relative;
+      }
+      p {
+        margin: 0;
+        height: 50px;
+        line-height: 50px;
+        transition: all 0.5s ease-in-out;
+      }
+
+      .sliding-line:nth-child(odd) {
+        transform: skew(60deg, -30deg) scaleY(0.667);
+      }
+      .sliding-line:nth-child(even) {
+        transform: skew(0deg, -30deg) scaleY(1.333);
+      }
+
+      .sliding-text:hover p {
+        transform: translate(0, -50px);
+        cursor: pointer;
+      }
+
+      .sliding-line:nth-child(1) {
+        left: 29px;
+      }
+      .sliding-line:nth-child(2) {
+        left: 58px;
+      }
+      .sliding-line:nth-child(3) {
+        left: 87px;
+      }
+      .sliding-line:nth-child(4) {
+        left: 116px;
+      }
+      .sliding-line:nth-child(5) {
+        left: 145px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sliding-text">
+      <div class="sliding-line">
+        <p></p>
+        <p>Text Sliding</p>
+      </div>
+      <div class="sliding-line">
+        <p>Text Sliding</p>
+        <p>on staircase</p>
+      </div>
+      <div class="sliding-line">
+        <p>on staircase</p>
+        <p>Text-effect</p>
+      </div>
+      <div class="sliding-line">
+        <p>Text-effect</p>
+        <p>using css</p>
+      </div>
+      <div class="sliding-line">
+        <p>using css</p>
+        <p></p>
+      </div>
+    </div>
+  </body>
+</html>
